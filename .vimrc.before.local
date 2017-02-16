@@ -1,0 +1,37 @@
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='solarized'
+
+let g:spf13_clear_search_highlight = 1
+let g:used_javascript_libs = 'underscore,react,ramda'
+
+let g:javascript_plugin_jsdoc = 1
+let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_enable_signs=1
+"let b:shell = 'sh'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:ctrlp_open_new_file = 't'
+
+"let g:ctrlp_prompt_mappings = {
+    "\ 'CreateNewFile()':      ['<leader>pn'],
+"\}
+let g:easytags_languages = {
+\   'Javascript': {
+\     'cmd': 'jsctags',
+\       'args': [],
+\       'fileoutput_opt': '-f',
+\       'stdout_opt': '-f-',
+\       'recurse_flag': '-R'
+\   }
+\}
+let g:easytags_dynamic_files = 1
+let g:easytags_async = 1
+
