@@ -67,6 +67,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+inoremap jk <esc>
+
 "Изменения размеров окна (шаг)
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
@@ -155,3 +157,4 @@ autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 "let g:config_Beautifier['js'] = {}
 "let g:config_Beautifier['js'].indent_size = '2'
 "
+

@@ -24,14 +24,12 @@ let g:ctrlp_open_new_file = 't'
     "\ 'CreateNewFile()':      ['<leader>pn'],
 "\}
 let g:easytags_languages = {
-\   'Javascript': {
+\   'javascript': {
 \     'cmd': 'jsctags',
 \       'args': [],
-\       'fileoutput_opt': '-f',
-\       'stdout_opt': '-f-',
-\       'recurse_flag': '-R'
 \   }
 \}
+set tags=./tags
 let g:easytags_dynamic_files = 1
 let g:easytags_async = 1
 
