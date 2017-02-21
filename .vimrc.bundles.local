@@ -30,4 +30,7 @@ Plugin 'heavenshell/vim-jsdoc'
 Plugin 'othree/es.next.syntax.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'rbgrouleff/bclose.vim'
+Plugin 'gregsexton/gitv'
+Plugin 'skywind3000/asyncrun.vim'
 

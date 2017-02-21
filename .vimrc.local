@@ -1,7 +1,7 @@
 set autoread
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 map <Leader>m :MRU<CR>
-"В командном режиме удалять через BACKSPACE 
+"В командном режиме удалять через BACKSPACE
 nnoremap <bs> X
 
 noremap <F2> :w<cr>
@@ -11,13 +11,12 @@ noremap  <F5> :BufExplorer<CR>
 noremap! <F5> <esc>:BufExplorer<CR>
 
 " F6 - предыдущий буфер
-noremap <F6> :bp<cr>
-noremap! <F6> <esc>:bp<cr>i
+noremap <F6> :tabprev<cr>
+noremap! <F6> <esc>:tabprev<cr>i
 
 " F7 - следующий буфер
-noremap <F7> :bn<cr>
-noremap! <F7> <esc>:bn<cr>i
-
+noremap <F7> :tabnext<cr>
+noremap! <F7> <esc>:tabnext<cr>i
 
 " Tab navigation like Firefox.
 "nnoremap <C-S-tab> :tabprevious<CR>
@@ -30,16 +29,6 @@ noremap! <F7> <esc>:bn<cr>i
 "inoremap <C-tab>   <Esc>:tabnext<CR>i
 "inoremap <C-right> <Esc>:tabnext<CR>i
 "noremap  <C-t>   <Esc>:tabnew<CR>
-nnoremap <A-F1> 1gt
-nnoremap <A-F2> 2gt
-nnoremap <A-F3> 3gt
-nnoremap <A-F4> 4gt
-nnoremap <A-F5> 5gt
-nnoremap <A-F6> 6gt
-nnoremap <A-F7> 7gt
-nnoremap <A-F8> 8gt
-nnoremap <A-F9> 9gt
-nnoremap <A-F0> 10gt
 
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabnext<CR>
@@ -48,7 +37,7 @@ nnoremap tl  :tablast<CR>
 nnoremap tt  :tabedit<CR>
 nnoremap tn  :tabnew<CR>
 nnoremap tm  :tabm<CR>
-nnoremap td  :tabclose<CR>
+nnoremap td  :windo bd<CR>
 
 "Отключаем стрелки для обучения
 noremap <Up>    <Nop>
@@ -78,24 +67,28 @@ if mapcheck("<C-e>") != ''
 endif
 
 map <leader>E <plug>NERDTreeTabsToggle<CR>
+nnoremap <silent> <Leader>bd :Bclose<CR>
+nnoremap <silent> <Leader>gk :Gitv<CR>
+nnoremap <silent> <Leader>gK :Gitv!<CR>
 
 set fileformat=unix
 set noswapfile
 set encoding=utf-8
 set lazyredraw
-set shiftwidth=2
 
+set shiftwidth=2                " Use indents of 4 spaces
+set expandtab                   " Tabs are spaces, not tabs
+set tabstop=2                   " An indentation every four columns
+set softtabstop=2               " Let backspace delete indent
 "set guifont=Consolas:h12
-let g:localvimrc_sandbox=0
-let g:localvimrc_ask=0
 
-let windows10=$WINDOWS10         
-if windows10 == '0'              
-    set t_ku=(ctrl+v , UP arrow)   
-    set t_kd=(ctrl+v , DOWN arrow) 
+let windows10=$WINDOWS10
+if windows10 == '0'
+    set t_ku=(ctrl+v , UP arrow)
+    set t_kd=(ctrl+v , DOWN arrow)
     set t_kr=(ctrl+v , RIGHT arrow)
-    set t_kl=(ctrl+v , LEFT arrow) 
-endif                            
+    set t_kl=(ctrl+v , LEFT arrow)
+endif
 
 
 "let g:indent_guides_auto_colors = 0
@@ -153,8 +146,18 @@ autocmd FileType javascript.jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()
 autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
+augroup plugin_vim_jsbeautify
+    autocmd!
+
+    autocmd BufEnter *.jsx nnoremap <buffer>  <c-f> :call JsxBeautify()<cr>
+    autocmd BufEnter *.jsx vnoremap <buffer>  <c-f> :call RangeJsxBeautify()<cr>
+augroup END
 "let g:config_Beautifier = {}
 "let g:config_Beautifier['js'] = {}
 "let g:config_Beautifier['js'].indent_size = '2'
 "
+"Make AG command to run Ack from project root
+cnoreabbrev ag Gcd <bar> Ack
+"
+"git branch | sed -n -e 's/^\* \(.*\)/\1/p'
 

@@ -33,3 +33,8 @@ set tags=./tags
 let g:easytags_dynamic_files = 1
 let g:easytags_async = 1
 
+let g:ctrlp_custom_ignore = '\v[\/]\.(DS_Storegit|hg|svn|optimized|compiled|node_modules)$'
+
+let g:localvimrc_sandbox=0
+let g:localvimrc_ask=0
+
