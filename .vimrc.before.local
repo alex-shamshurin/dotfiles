@@ -15,8 +15,12 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_warning_symbol = 'WW'
+let g:syntastic_error_symbol = 'EE'
+let g:syntastic_enable_balloons = 1
+
 
 let g:ctrlp_open_new_file = 't'
 
@@ -37,4 +41,19 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(DS_Storegit|hg|svn|optimized|compiled|node
 
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
+
+let g:racer_cmd = "~/.cargo/bin"
+
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+
+let g:formatdef_my_custom_js='"jscs --fix"'
+let g:formatters_javascript = ['my_custom_js']
+let g:formatters_jsx = ['my_custom_js']
+let g:formatters_javascript_jsx = ['my_custom_js']
+let g:autoformat_verbosemode=1
+
+let g:indent_guides_auto_colors = 0
+
 

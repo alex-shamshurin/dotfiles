@@ -1,3 +1,16 @@
+"Настройки цветов
+set background=dark
+"set background=light
+
+let s:tbg = &background
+if s:tbg == "light"
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=4
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=252
+else
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=24
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=4
+endif
+
 set autoread
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 map <Leader>m :MRU<CR>
@@ -91,67 +104,58 @@ if windows10 == '0'
 endif
 
 
-"let g:indent_guides_auto_colors = 0
-
-function! ChangeBG()
-  let s:tbg = &background
-  " Inversion
-  if s:tbg == "dark"
-    set background=light
-    hi IndentGuidesOdd  guibg=red   ctermbg=3
-    hi IndentGuidesEven guibg=green ctermbg=4
-  else
-    set background=dark
-    hi IndentGuidesOdd  ctermbg=white
-    hi IndentGuidesEven ctermbg=lightgrey
-  endif
-endfunction
+"function! ChangeBG()
+  "let s:tbg = &background
+  "" Inversion
+  "if s:tbg == "dark"
+    "set background=light
+    "hi IndentGuidesOdd  ctermbg=white
+    "hi IndentGuidesEven ctermbg=lightgrey
+  "else
+    "set background=dark
+    "hi IndentGuidesOdd  ctermbg=3
+    "hi IndentGuidesEven ctermbg=4
+  "endif
+"endfunction
 
 
 if $TMUX != ''
     set clipboard=
 endif
 
-"set background=light
-"hi IndentGuidesOdd  ctermbg=white
-"hi IndentGuidesEven ctermbg=white
-"hi IndentGuidesOdd  guibg=red   ctermbg=3
-"hi IndentGuidesEven guibg=green ctermbg=4
-"let g:airline_theme='solarized'
 map <Leader>bg :call ChangeBG() <CR>
 map <Leader>gm :Merginal<CR>
 
 "Автообновление и сохранение
 au FocusGained,BufEnter * :silent! !
-au FocusLost,WinLeave * :silent! w
 
 "map <Leader>gm :CtrlPModified<CR>
 "map <Leader>gM :CtrlPBranch<CR>
 
 set shell=sh
 
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-" for json
-autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
-" for jsx
-autocmd FileType javascript.jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
-" for html
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-" for css or scss
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>"
+"autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+"" for json
+"autocmd FileType json noremap <buffer> <c-f> :call JsonBeautify()<cr>
+"" for jsx
+"autocmd FileType javascript.jsx noremap <buffer> <c-f> :call JsxBeautify()<cr>
+"" for html
+"autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+"" for css or scss
+"autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>"
 
-autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
-autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
-autocmd FileType javascript.jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
-autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+"autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+"autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
+"autocmd FileType javascript.jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
+"autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+"autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
-augroup plugin_vim_jsbeautify
-    autocmd!
+"augroup plugin_vim_jsbeautify
+    "autocmd!
 
-    autocmd BufEnter *.jsx nnoremap <buffer>  <c-f> :call JsxBeautify()<cr>
-    autocmd BufEnter *.jsx vnoremap <buffer>  <c-f> :call RangeJsxBeautify()<cr>
-augroup END
+    "autocmd BufEnter *.jsx nnoremap <buffer>  <c-f> :call JsxBeautify()<cr>
+    "autocmd BufEnter *.jsx vnoremap <buffer>  <c-f> :call RangeJsxBeautify()<cr>
+"augroup END
 "let g:config_Beautifier = {}
 "let g:config_Beautifier['js'] = {}
 "let g:config_Beautifier['js'].indent_size = '2'
@@ -160,4 +164,29 @@ augroup END
 cnoreabbrev ag Gcd <bar> Ack
 "
 "git branch | sed -n -e 's/^\* \(.*\)/\1/p'
+
+au FileType rust nmap rd <Plug>(rust-def)
+au FileType rust nmap rs <Plug>(rust-def-split)
+au FileType rust nmap rx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>rd<Plug>(rust-doc)
+
+autocmd GUIEnter * set vb t_vb=
+set noerrorbells
+set vb t_vb=
+
+noremap <F3> :Autoformat<CR>
+noremap <F4> :SyntasticCheck<CR>
+
+"Подстветка ошибок и предупреждений по разному
+highlight link SyntasticError SpellBad
+highlight link SyntasticWarning SpellCap
+
+"Кастомизация цветов синтаксис
+"hi SpellBad ctermfg=white ctermbg=green
+
+autocmd User Node
+  \ if &filetype == "javascript" |
+  \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
+  \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
+  \ endif
 
