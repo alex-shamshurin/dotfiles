@@ -1,6 +1,12 @@
 "Настройки цветов
-set background=dark
-"set background=light
+"set background=dark
+set background=light
+"color moloka
+let g:airline_theme='solarized'
+"
+"Нулевая задержка на последовательности через map
+set ttimeout
+set timeoutlen=1000 ttimeoutlen=0
 
 let s:tbg = &background
 if s:tbg == "light"
@@ -13,7 +19,6 @@ endif
 
 set autoread
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
-map <Leader>m :MRU<CR>
 "В командном режиме удалять через BACKSPACE
 nnoremap <bs> X
 
@@ -24,12 +29,12 @@ noremap  <F5> :BufExplorer<CR>
 noremap! <F5> <esc>:BufExplorer<CR>
 
 " F6 - предыдущий буфер
-noremap <F6> :tabprev<cr>
-noremap! <F6> <esc>:tabprev<cr>i
+noremap <F6> :bprevious<cr>
+noremap! <F6> <esc>:bprevious<cr>i
 
 " F7 - следующий буфер
-noremap <F7> :tabnext<cr>
-noremap! <F7> <esc>:tabnext<cr>i
+noremap <F7> :bnext<cr>
+noremap! <F7> <esc>:bnext<cr>i
 
 " Tab navigation like Firefox.
 "nnoremap <C-S-tab> :tabprevious<CR>
@@ -51,6 +56,19 @@ nnoremap tt  :tabedit<CR>
 nnoremap tn  :tabnew<CR>
 nnoremap tm  :tabm<CR>
 nnoremap td  :windo bd<CR>
+nnoremap bd  :Bclose<CR>
+
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>- <Plug>AirlineSelectPrevTab
+nmap <leader>+ <Plug>AirlineSelectNextTab
 
 "Отключаем стрелки для обучения
 noremap <Up>    <Nop>
@@ -70,6 +88,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
 inoremap jk <esc>
+nnoremap <space> i<space><esc>
+imap <C-l> <Esc>$a
+
 
 "Изменения размеров окна (шаг)
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
@@ -79,7 +100,8 @@ if mapcheck("<C-e>") != ''
     execute "unmap <C-e>"
 endif
 
-map <leader>E <plug>NERDTreeTabsToggle<CR>
+"map <silent> <c-w> :NERDTreeFind<CR>
+map <silent> <leader>E <plug>NERDTreeTabsToggle<CR>
 nnoremap <silent> <Leader>bd :Bclose<CR>
 nnoremap <silent> <Leader>gk :Gitv<CR>
 nnoremap <silent> <Leader>gK :Gitv!<CR>
@@ -129,6 +151,8 @@ map <Leader>gm :Merginal<CR>
 "Автообновление и сохранение
 au FocusGained,BufEnter * :silent! !
 
+"au BufEnter,VimEnter * :AirlineRefresh
+
 "map <Leader>gm :CtrlPModified<CR>
 "map <Leader>gM :CtrlPBranch<CR>
 
@@ -161,7 +185,7 @@ set shell=sh
 "let g:config_Beautifier['js'].indent_size = '2'
 "
 "Make AG command to run Ack from project root
-cnoreabbrev ag Gcd <bar> Ack
+cnoreabbrev ag Gcd <bar> Ack!
 "
 "git branch | sed -n -e 's/^\* \(.*\)/\1/p'
 
@@ -174,8 +198,11 @@ autocmd GUIEnter * set vb t_vb=
 set noerrorbells
 set vb t_vb=
 
-noremap <F3> :Autoformat<CR>
-noremap <F4> :SyntasticCheck<CR>
+noremap  <F3> :Autoformat<CR>
+noremap! <F3> <esc>:Autoformat<CR>
+
+noremap  <F4> :SyntasticCheck<CR>
+noremap! <F4> <esc>:SyntasticCheck<CR>
 
 "Подстветка ошибок и предупреждений по разному
 highlight link SyntasticError SpellBad
@@ -184,9 +211,36 @@ highlight link SyntasticWarning SpellCap
 "Кастомизация цветов синтаксис
 "hi SpellBad ctermfg=white ctermbg=green
 
-autocmd User Node
-  \ if &filetype == "javascript" |
-  \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
-  \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
-  \ endif
+"Попытка сделать переход по node файлам в vsplit
+"autocmd User Node
+  "\ if &filetype == "javascript" |
+  "\   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
+  "\   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
+  "\ endif
+
+nnoremap <Leader>ss :CtrlPObsession<CR>
+
+let s:hidden_all = 0
+function! ToggleHiddenAll()
+  if s:hidden_all  == 0
+    let s:hidden_all = 1
+    set noshowmode
+    set noruler
+    set laststatus=0
+    set noshowcmd
+  else
+    let s:hidden_all = 0
+    set showmode
+    set ruler
+    set laststatus=2
+    set showcmd
+  endif
+endfunction
+
+nnoremap <Leader>h :call ToggleHiddenAll()<CR>
+
+nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
+nnoremap <silent> <Leader>m :CtrlPMRU<CR>
+
+
 

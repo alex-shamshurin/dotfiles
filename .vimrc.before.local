@@ -1,6 +1,22 @@
 let g:airline_powerline_fonts=1
+"Строка вверху
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='solarized'
+"let g:airline_theme='dark'
+"Только имена в строке, не полный путь
+let g:airline#extensions#tabline#fnamemod = ':t'
+"Показывать номера вкладок вместо окон
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_buffers = 1
+"let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#obsession#enabled = 1
+"let g:airline#extensions#tabline#buffer_min_count = 0
+let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
+"let airline#extensions#tabline#disable_refresh = 1
+let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
+let g:airline#extensions#tabline#show_close_button = 0
 
 let g:spf13_clear_search_highlight = 1
 let g:used_javascript_libs = 'underscore,react,ramda'
@@ -56,4 +72,8 @@ let g:autoformat_verbosemode=1
 
 let g:indent_guides_auto_colors = 0
 
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
+let g:molokai_original = 0
 

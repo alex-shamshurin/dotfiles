@@ -95,7 +95,7 @@
     " Mappings for editing/applying spf13 config
     "   let g:spf13_edit_config_mapping='<leader>ev'
     "   let g:spf13_apply_config_mapping='<leader>sv'
-    
+
 " }
 
 " Use fork before if available {
@@ -109,3 +109,8 @@
         source ~/.vimrc.before.local
     endif
 " }
+"
+
+let g:spf13_no_neosnippet_expand = 1
+
+
